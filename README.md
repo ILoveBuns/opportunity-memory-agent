@@ -1,8 +1,9 @@
 # Opportunity Memory Agent
 
 An agentic opportunity tracker that remembers every review, blocker, deadline, and
-next action in CockroachDB. It is designed for the CockroachDB × AWS Agentic
-Memory hackathon.
+next action in CockroachDB. The reusable open-source core targets long-running,
+real-world agent workflows; it is also packaged for the CockroachDB × AWS Agentic
+Memory hackathon and GOAI 2026 Boundless Agents track.
 
 ## Why persistent memory matters
 
@@ -55,6 +56,9 @@ Run `pytest`.
 See `SUBMISSION_DRAFT.md` for the sponsor mapping, evidence checklist, and the
 under-three-minute demo sequence. The draft deliberately leaves cloud and
 customer-validation claims unfilled until they can be demonstrated.
+
+`GOAI_SUBMISSION_DRAFT.md` contains the bilingual-review-ready positioning,
+open-source evidence, and an honest demo plan for the GOAI preliminary round.
 
 ## License
 
