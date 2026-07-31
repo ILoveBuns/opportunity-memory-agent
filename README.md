@@ -59,6 +59,8 @@ customer-validation claims unfilled until they can be demonstrated.
 
 `GOAI_SUBMISSION_DRAFT.md` contains the bilingual-review-ready positioning,
 open-source evidence, and an honest demo plan for the GOAI preliminary round.
+`GOAI_PLATFORM_FIELDS.md` provides copy-ready non-sensitive platform fields, while
+`GOAI_DEMO_SCRIPT.md` gives a timed, evidence-first recording plan under three minutes.
 
 ## License
 
