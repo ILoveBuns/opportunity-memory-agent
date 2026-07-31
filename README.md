@@ -19,6 +19,11 @@ and derives a prioritized action queue from that history.
 4. Initialize the schema: `python -m app.init_db`.
 5. Run: `uvicorn app.main:app --reload`.
 
+For a reproducible container demo, set `GEMINI_API_KEY` and run
+`docker compose up --build`. After the services are healthy, run
+`docker compose exec api python scripts/seed_demo.py` (the script is included in
+the repository and may also be run directly against any configured database).
+
 The production target is AWS App Runner or ECS backed by CockroachDB Cloud. No
 cloud resources are created by this repository.
 
@@ -38,6 +43,10 @@ and is instructed not to invent eligibility, progress, or rewards. Set
 ## Tests
 
 Run `pytest`.
+
+See `SUBMISSION_DRAFT.md` for the sponsor mapping, evidence checklist, and the
+under-three-minute demo sequence. The draft deliberately leaves cloud and
+customer-validation claims unfilled until they can be demonstrated.
 
 ## License
 
