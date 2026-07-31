@@ -1,0 +1,39 @@
+# Opportunity Memory Agent
+
+An agentic opportunity tracker that remembers every review, blocker, deadline, and
+next action in CockroachDB. It is designed for the CockroachDB × AWS Agentic
+Memory hackathon.
+
+## Why persistent memory matters
+
+Opportunity workflows span weeks: organizers reply, deadlines move, credentials
+expire, and a previously blocked task may become actionable. A stateless chatbot
+repeats work or misses deadlines. This service stores an append-only event history
+and derives a prioritized action queue from that history.
+
+## Local run
+
+1. Start a CockroachDB instance and create a database.
+2. Copy `.env.example` to `.env` and set `DATABASE_URL`.
+3. Install dependencies: `pip install -r requirements.txt`.
+4. Initialize the schema: `python -m app.init_db`.
+5. Run: `uvicorn app.main:app --reload`.
+
+The production target is AWS App Runner or ECS backed by CockroachDB Cloud. No
+cloud resources are created by this repository.
+
+## API
+
+- `POST /opportunities` creates an opportunity and its first memory event.
+- `POST /opportunities/{id}/events` appends a review, progress, or blocker event.
+- `GET /opportunities/{id}/memory` returns the complete durable timeline.
+- `GET /actions` ranks the next actions using deadline, status, and confidence.
+- `GET /health` reports service and database health.
+
+## Tests
+
+Run `pytest`.
+
+## License
+
+MIT
