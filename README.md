@@ -29,8 +29,11 @@ For a reproducible container demo, set `GEMINI_API_KEY` and run
 `docker compose exec api python scripts/seed_demo.py` (the script is included in
 the repository and may also be run directly against any configured database).
 
-The production target is AWS App Runner or ECS backed by CockroachDB Cloud. No
-cloud resources are created by this repository.
+The production target is AWS App Runner backed by CockroachDB Cloud. The
+checked-in `apprunner.yaml` contains no credentials; the deployment guide maps
+account-specific Secrets Manager ARNs in the service configuration. See
+`DEPLOYMENT.md` for the deployment and evidence checklist. No cloud resources
+are created automatically by this repository.
 
 ## API
 

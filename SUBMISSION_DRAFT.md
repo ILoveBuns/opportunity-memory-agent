@@ -29,6 +29,8 @@ an explicit instruction not to invent progress or eligibility.
 - CockroachDB is the system of record for opportunities and immutable memory
   events.
 - The API is packaged for deployment to AWS App Runner or ECS.
+- `apprunner.yaml` provides a reproducible source deployment; the deployment
+  guide maps CockroachDB/Gemini credentials through AWS Secrets Manager.
 - Gemini generates the human-readable operations brief from bounded facts.
 
 ## Demo sequence (under three minutes)
