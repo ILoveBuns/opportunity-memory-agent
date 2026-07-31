@@ -1,5 +1,7 @@
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 
+from .dashboard import DASHBOARD_HTML
 from .gemini import generate_action_brief
 from .models import MemoryEvent, MemoryEventCreate, Opportunity, OpportunityCreate, RankedAction
 from .ranking import rank_action
@@ -10,6 +12,11 @@ app = FastAPI(title="Opportunity Memory Agent", version="0.1.0")
 
 def get_repository() -> Repository:
     return Repository()
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def dashboard():
+    return DASHBOARD_HTML
 
 
 @app.get("/health")

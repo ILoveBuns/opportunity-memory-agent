@@ -33,7 +33,7 @@ an explicit instruction not to invent progress or eligibility.
 
 ## Demo sequence (under three minutes)
 
-1. Create an opportunity and show its initial memory event.
+1. Open `/` and create an opportunity in the responsive dashboard, then show its initial memory event.
 2. Append a progress event, then a blocker event.
 3. Retrieve the complete chronological memory timeline.
 4. Open `/actions` and show deterministic reprioritization.

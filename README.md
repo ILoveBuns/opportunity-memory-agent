@@ -19,6 +19,11 @@ and derives a prioritized action queue from that history.
 4. Initialize the schema: `python -m app.init_db`.
 5. Run: `uvicorn app.main:app --reload`.
 
+Open `http://localhost:8000/` for the responsive demo dashboard. The interactive
+page creates opportunities, displays the ranked queue, appends memory events,
+shows the durable timeline, and requests a grounded Gemini brief without adding
+a frontend framework or build step.
+
 For a reproducible container demo, set `GEMINI_API_KEY` and run
 `docker compose up --build`. After the services are healthy, run
 `docker compose exec api python scripts/seed_demo.py` (the script is included in
