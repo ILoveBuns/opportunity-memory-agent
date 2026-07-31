@@ -61,6 +61,9 @@ customer-validation claims unfilled until they can be demonstrated.
 open-source evidence, and an honest demo plan for the GOAI preliminary round.
 `GOAI_PLATFORM_FIELDS.md` provides copy-ready non-sensitive platform fields, while
 `GOAI_DEMO_SCRIPT.md` gives a timed, evidence-first recording plan under three minutes.
+Run `./make_goai_demo_video.sh` to generate the 1080p Chinese-narrated GOAI overview;
+the generated media stays outside version control, while the script and narration
+remain reproducible and reviewable.
 
 ## License
 

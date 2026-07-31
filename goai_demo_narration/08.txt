@@ -1,0 +1,1 @@
+Opportunity Memory Agent 让长期智能体记住事实，解释排序，尊重边界，并持续推进真实工作。源码和复现步骤已经公开在 GitHub。
