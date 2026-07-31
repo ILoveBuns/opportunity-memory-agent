@@ -28,7 +28,12 @@ cloud resources are created by this repository.
 - `POST /opportunities/{id}/events` appends a review, progress, or blocker event.
 - `GET /opportunities/{id}/memory` returns the complete durable timeline.
 - `GET /actions` ranks the next actions using deadline, status, and confidence.
+- `GET /actions/brief` asks Gemini for an evidence-grounded Markdown action brief.
 - `GET /health` reports service and database health.
+
+The Gemini integration receives only the ten highest-ranked opportunity records
+and is instructed not to invent eligibility, progress, or rewards. Set
+`GEMINI_API_KEY`; `GEMINI_MODEL` defaults to `gemini-2.5-flash`.
 
 ## Tests
 

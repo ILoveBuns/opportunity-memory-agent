@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException
 
+from .gemini import generate_action_brief
 from .models import MemoryEvent, MemoryEventCreate, Opportunity, OpportunityCreate, RankedAction
 from .ranking import rank_action
 from .repository import Repository
@@ -49,3 +50,18 @@ def get_actions(repository: Repository = Depends(get_repository)):
         key=lambda action: action.urgency_score,
         reverse=True,
     )
+
+
+@app.get("/actions/brief")
+def get_action_brief(repository: Repository = Depends(get_repository)):
+    actions = sorted(
+        (rank_action(item) for item in repository.actionable()),
+        key=lambda action: action.urgency_score,
+        reverse=True,
+    )
+    try:
+        return {"brief": generate_action_brief(actions), "action_count": len(actions)}
+    except ValueError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except RuntimeError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
