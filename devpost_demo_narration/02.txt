@@ -1,0 +1,1 @@
+Long-running workflows change across weeks. Organizer replies arrive on different platforms, deadlines move, and stateless assistants repeat work or confuse simulated output with verified progress.

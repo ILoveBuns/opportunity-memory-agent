@@ -1,0 +1,1 @@
+Human boundaries are first-class facts. Reading status, testing code, and preparing evidence can be automated. Identity checks, legal terms, payments, and verification remain explicit human blocker events.

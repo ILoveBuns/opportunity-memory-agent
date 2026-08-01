@@ -1,0 +1,1 @@
+The repository includes Docker Compose, deterministic demo data, automated tests, CockroachDB persistence, and an AWS App Runner source configuration. Cloud deployment remains a pending claim until it is independently verified.

@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 .deps/
 goai-demo-output/
+devpost-demo-output/

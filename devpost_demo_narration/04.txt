@@ -1,0 +1,1 @@
+A deterministic scorer ranks what is urgent and executable. A smaller opportunity due tomorrow can correctly outrank a larger reward due next week, using deadline pressure, status, confidence, and blockers.

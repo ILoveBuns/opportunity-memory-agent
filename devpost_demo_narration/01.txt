@@ -1,0 +1,1 @@
+Opportunity Memory Agent is a durable operations agent for work that lasts longer than a chat session. It remembers every deadline, review, blocker, and next action.

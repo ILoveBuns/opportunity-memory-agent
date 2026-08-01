@@ -1,0 +1,1 @@
+CockroachDB stores an append-only event timeline. Created, review, progress, blocker, and submission events preserve why the state changed, and the complete history survives service restarts.

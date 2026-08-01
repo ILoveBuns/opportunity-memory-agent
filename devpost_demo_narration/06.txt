@@ -1,0 +1,1 @@
+Gemini receives only the ten highest-ranked structured records. It is instructed not to invent eligibility, progress, or rewards, so missing evidence remains visibly unknown instead of becoming a hallucinated claim.

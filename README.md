@@ -69,6 +69,12 @@ Run `./make_goai_demo_video.sh` to generate the 1080p Chinese-narrated GOAI over
 the generated media stays outside version control, while the script and narration
 remain reproducible and reviewable.
 
+Run `./make_devpost_demo_video.sh` to generate the English-narrated, 1080p
+CockroachDB × AWS overview. The video explicitly distinguishes reproducible local
+evidence from cloud deployment claims that still require independent verification.
+The [rendered two-minute demo](assets/opportunity-memory-agent-devpost-1080p.mp4)
+is included for reviewers and can be downloaded directly from GitHub.
+
 ## License
 
 MIT

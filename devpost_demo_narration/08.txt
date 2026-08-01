@@ -1,0 +1,1 @@
+Opportunity Memory Agent combines persistent memory, explainable ranking, grounded generation, and explicit human handoffs. The complete MIT licensed project is available on GitHub.
