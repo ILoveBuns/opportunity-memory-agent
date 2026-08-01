@@ -5,7 +5,7 @@ from .dashboard import DASHBOARD_HTML
 from .gemini import generate_action_brief
 from .models import MemoryEvent, MemoryEventCreate, Opportunity, OpportunityCreate, RankedAction
 from .ranking import rank_action
-from .repository import Repository
+from .repository import OpportunityNotFoundError, Repository
 
 app = FastAPI(title="Opportunity Memory Agent", version="0.1.0")
 
@@ -42,12 +42,18 @@ def append_event(
     payload: MemoryEventCreate,
     repository: Repository = Depends(get_repository),
 ):
-    return repository.append_event(opportunity_id, payload)
+    try:
+        return repository.append_event(opportunity_id, payload)
+    except OpportunityNotFoundError as error:
+        raise HTTPException(status_code=404, detail="opportunity not found") from error
 
 
 @app.get("/opportunities/{opportunity_id}/memory", response_model=list[MemoryEvent])
 def get_memory(opportunity_id: str, repository: Repository = Depends(get_repository)):
-    return repository.memory(opportunity_id)
+    try:
+        return repository.memory(opportunity_id)
+    except OpportunityNotFoundError as error:
+        raise HTTPException(status_code=404, detail="opportunity not found") from error
 
 
 @app.get("/actions", response_model=list[RankedAction])

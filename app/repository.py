@@ -8,6 +8,10 @@ from psycopg.rows import dict_row
 from .models import MemoryEventCreate, Opportunity, OpportunityCreate
 
 
+class OpportunityNotFoundError(LookupError):
+    """Raised when an operation targets an opportunity that does not exist."""
+
+
 class Repository:
     def __init__(self, database_url: str | None = None):
         self.database_url = database_url or os.environ["DATABASE_URL"]
@@ -47,6 +51,11 @@ class Repository:
     def append_event(self, opportunity_id: str, payload: MemoryEventCreate):
         event_id = str(uuid4())
         with self.connection() as connection, connection.transaction():
+            exists = connection.execute(
+                "SELECT 1 FROM opportunities WHERE id = %s", (opportunity_id,)
+            ).fetchone()
+            if exists is None:
+                raise OpportunityNotFoundError(opportunity_id)
             row = connection.execute(
                 """INSERT INTO memory_events (id, opportunity_id, kind, detail)
                    VALUES (%s, %s, %s, %s) RETURNING *""",
@@ -65,6 +74,11 @@ class Repository:
 
     def memory(self, opportunity_id: str):
         with self.connection() as connection:
+            exists = connection.execute(
+                "SELECT 1 FROM opportunities WHERE id = %s", (opportunity_id,)
+            ).fetchone()
+            if exists is None:
+                raise OpportunityNotFoundError(opportunity_id)
             return connection.execute(
                 """SELECT * FROM memory_events WHERE opportunity_id = %s
                    ORDER BY created_at ASC""",
