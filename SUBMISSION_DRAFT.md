@@ -42,10 +42,19 @@ an explicit instruction not to invent progress or eligibility.
 5. Open `/actions/brief` and show Gemini's grounded top actions and blockers.
 6. Restart the API and retrieve the same timeline to demonstrate persistence.
 
+## Ready-to-use public assets
+
+- English narrated overview (2:01):
+  `https://github.com/ILoveBuns/opportunity-memory-agent/raw/main/assets/opportunity-memory-agent-devpost-1080p.mp4`
+- 16:9 project cover:
+  `https://raw.githubusercontent.com/ILoveBuns/opportunity-memory-agent/main/assets/opportunity-memory-agent-cover.png`
+- Reproducibility and integrity manifest: `DEVPOST_EVIDENCE.md`
+
 ## Evidence still required before submission
 
 - Public AWS deployment URL and CockroachDB Cloud connection.
-- Screen recording of the deployed flow.
+- Screen recording of the deployed flow. The public narrated overview is already
+  available, but it is not presented as proof of a live cloud deployment.
 - Exact Devpost track selections and accepted rules.
 - Gemini/Google Cloud project evidence for the XPRIZE submission.
 - Truthful customer or revenue validation if required by the XPRIZE rules.

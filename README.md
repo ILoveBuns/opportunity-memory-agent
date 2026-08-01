@@ -74,6 +74,8 @@ CockroachDB × AWS overview. The video explicitly distinguishes reproducible loc
 evidence from cloud deployment claims that still require independent verification.
 The [rendered two-minute demo](assets/opportunity-memory-agent-devpost-1080p.mp4)
 is included for reviewers and can be downloaded directly from GitHub.
+See [DEVPOST_EVIDENCE.md](DEVPOST_EVIDENCE.md) for the public URLs, checksums,
+CI run, and explicit claims boundary.
 
 ## License
 
