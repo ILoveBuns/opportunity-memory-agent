@@ -43,6 +43,7 @@ Boundless Agents（无界智能体）——面向跨周、跨平台的真实机�
 - 本地测试：6 项通过（提交前需重新运行并截取日志）
 - 部署配置：`Dockerfile`、`docker-compose.yml`、`apprunner.yaml`
 - 操作说明：`README.md`、`DEPLOYMENT.md`
+- 提交证据及 PDF/视频校验值：`GOAI_EVIDENCE.md`
 
 ## 尚不能填写的内容
 
