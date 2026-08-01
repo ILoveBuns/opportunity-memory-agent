@@ -53,6 +53,10 @@ and is instructed not to invent eligibility, progress, or rewards. Set
 
 Run `pytest`.
 
+Every push and pull request also runs the suite on Python 3.11 and 3.12 in
+GitHub Actions. The workflow has read-only repository permissions and requires
+no cloud credentials, so reviewers can verify the open-source core safely.
+
 See `SUBMISSION_DRAFT.md` for the sponsor mapping, evidence checklist, and the
 under-three-minute demo sequence. The draft deliberately leaves cloud and
 customer-validation claims unfilled until they can be demonstrated.
