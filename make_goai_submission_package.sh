@@ -49,7 +49,7 @@ video_duration="$($ffprobe -v error -show_entries format=duration -of default=nw
 } > "$stage/GOAI_PACKAGE_MANIFEST.txt"
 
 rm -f "$output"
-(cd "$tmp" && zip -qr "$output" opportunity-memory-agent)
+(cd "$tmp" && "$python_bin" -m zipfile -c "$output" opportunity-memory-agent)
 unzip -tq "$output"
 echo "created $output"
 sha256sum "$output"
