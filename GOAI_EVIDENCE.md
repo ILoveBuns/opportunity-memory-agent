@@ -31,3 +31,29 @@ Verified on 2026-08-04 before the organizer-requested ZIP re-upload.
 - Organizer notice dated 2026-08-03 requests re-upload of locally retained original ZIP files because some platform-stored attachments were corrupted.
 - Submission counter is 1/3; the latest successful submission before the deadline becomes the judging version.
 - Re-upload instructions and acceptance criteria are recorded in `GOAI_REUPLOAD_GUIDE.md`.
+- On 2026-08-04 the second submission form was prepared with the project name,
+  public repository URL, and the verified 4,320,499-byte ZIP. The form remains
+  open before submission because the platform requires the entrant's real
+  recipient name, phone number, detailed address, and shirt size; none were
+  inferred or copied from unrelated sources.
+- After the entrant completed the required personal fields, the verified local
+  ZIP was submitted successfully. The platform counter changed to `2/3`; the
+  new judging record is `机会记忆智能体`, second submission, displayed size
+  4.1 MB, timestamp `2026/8/4 21:27:01`, status `审核中`, and the platform
+  displayed its explicit success confirmation dialog.
+
+## Closed-loop revision prepared after the second submission
+
+- Added a real approval-gated execution flow: plan, explicit approval,
+  deterministic SHA-256 verification, fail-closed state transition, and
+  immutable result write-back.
+- Evidence text is hashed immediately and is not persisted; only its digest and
+  byte count enter the execution record.
+- Validation now passes 12/12 automated tests, including approval enforcement,
+  successful verification, mismatch handling, and memory write-back.
+- Revised proposal PDF SHA-256:
+  `d3cd8aa6261b90bd906cebfab8c17ef31c9e6e06282d344d8e75205a98d3e992`.
+- Revised 127.637-second 1080p H.264/AAC demo SHA-256:
+  `2bb60fefa8e5a07042a9b3b3d83ec19c12602eb4ee67816a6c8f2322a33996f2`.
+- This revision remains local until its exact source commit is pushed and a new
+  package is built. It is not yet claimed as the platform judging version.

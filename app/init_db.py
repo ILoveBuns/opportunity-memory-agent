@@ -22,6 +22,19 @@ CREATE TABLE IF NOT EXISTS memory_events (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     INDEX (opportunity_id, created_at)
 );
+
+CREATE TABLE IF NOT EXISTS executions (
+    id UUID PRIMARY KEY,
+    opportunity_id UUID NOT NULL REFERENCES opportunities(id) ON DELETE CASCADE,
+    action_kind STRING NOT NULL CHECK (action_kind IN ('verify_evidence_sha256')),
+    state STRING NOT NULL CHECK (state IN ('planned','approved','succeeded','failed')),
+    input JSONB NOT NULL,
+    result JSONB NULL,
+    approval_note STRING NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    INDEX (opportunity_id, created_at)
+);
 """
 
 

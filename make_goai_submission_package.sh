@@ -42,7 +42,7 @@ video_duration="$($ffprobe -v error -show_entries format=duration -of default=nw
   echo "GOAI submission package manifest"
   echo "source_commit=$commit"
   echo "test_command=PYTHONPATH=.:.deps .deps/bin/pytest -q"
-  echo "test_result=10 passed"
+  echo "test_result=12 passed"
   echo "video_duration_seconds=$video_duration"
   echo
   (cd "$stage" && sha256sum GOAI_PROPOSAL.pdf opportunity-memory-agent-goai-1080p.mp4)

@@ -4,11 +4,24 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from datetime import datetime, timezone
+import hashlib
 from threading import RLock
 from uuid import uuid4
 
-from .models import MemoryEvent, MemoryEventCreate, Opportunity, OpportunityCreate
-from .repository import OpportunityNotFoundError
+from .models import (
+    EvidenceCheckCreate,
+    Execution,
+    ExecutionApproval,
+    MemoryEvent,
+    MemoryEventCreate,
+    Opportunity,
+    OpportunityCreate,
+)
+from .repository import (
+    ExecutionNotFoundError,
+    InvalidExecutionStateError,
+    OpportunityNotFoundError,
+)
 
 
 class _HealthyCursor:
@@ -31,6 +44,7 @@ class DemoRepository:
     def __init__(self) -> None:
         self._opportunities: dict[str, Opportunity] = {}
         self._events: dict[str, list[MemoryEvent]] = {}
+        self._executions: dict[str, Execution] = {}
         self._lock = RLock()
 
     @contextmanager
@@ -102,3 +116,86 @@ class DemoRepository:
                 for item in self._opportunities.values()
                 if item.status in {"candidate", "active", "blocked"}
             ]
+
+    def plan_evidence_check(
+        self, opportunity_id: str, payload: EvidenceCheckCreate
+    ) -> Execution:
+        with self._lock:
+            if opportunity_id not in self._opportunities:
+                raise OpportunityNotFoundError(opportunity_id)
+            now = datetime.now(timezone.utc)
+            actual_sha256 = hashlib.sha256(payload.evidence.encode("utf-8")).hexdigest()
+            execution = Execution(
+                id=str(uuid4()),
+                opportunity_id=opportunity_id,
+                action_kind="verify_evidence_sha256",
+                state="planned",
+                input={
+                    "actual_sha256": actual_sha256,
+                    "expected_sha256": payload.expected_sha256,
+                    "evidence_bytes": len(payload.evidence.encode("utf-8")),
+                },
+                created_at=now,
+                updated_at=now,
+            )
+            self._executions[execution.id] = execution
+            self.append_event(
+                opportunity_id,
+                MemoryEventCreate(
+                    kind="progress",
+                    detail=f"Planned evidence check {execution.id}; awaiting approval.",
+                ),
+            )
+            return execution
+
+    def approve_execution(
+        self, execution_id: str, payload: ExecutionApproval
+    ) -> Execution:
+        with self._lock:
+            execution = self._executions.get(execution_id)
+            if execution is None:
+                raise ExecutionNotFoundError(execution_id)
+            if execution.state != "planned":
+                raise InvalidExecutionStateError("only planned executions can be approved")
+            execution = execution.model_copy(
+                update={
+                    "state": "approved",
+                    "approval_note": payload.note,
+                    "updated_at": datetime.now(timezone.utc),
+                }
+            )
+            self._executions[execution_id] = execution
+            return execution
+
+    def run_execution(self, execution_id: str) -> Execution:
+        with self._lock:
+            execution = self._executions.get(execution_id)
+            if execution is None:
+                raise ExecutionNotFoundError(execution_id)
+            if execution.state != "approved":
+                raise InvalidExecutionStateError("execution requires explicit approval")
+            actual = execution.input["actual_sha256"]
+            matched = actual == execution.input["expected_sha256"]
+            state = "succeeded" if matched else "failed"
+            execution = execution.model_copy(
+                update={
+                    "state": state,
+                    "result": {"matched": matched, "actual_sha256": actual},
+                    "updated_at": datetime.now(timezone.utc),
+                }
+            )
+            self._executions[execution_id] = execution
+            self.append_event(
+                execution.opportunity_id,
+                MemoryEventCreate(
+                    kind="progress" if matched else "blocker",
+                    detail=f"Evidence check {execution.id} {state}; SHA-256 {actual}.",
+                    status="active" if matched else "blocked",
+                    next_action=(
+                        "Attach verified evidence to the submission"
+                        if matched
+                        else "Replace or regenerate mismatched evidence"
+                    ),
+                ),
+            )
+            return execution

@@ -1,11 +1,12 @@
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
 
 Status = Literal["candidate", "active", "blocked", "submitted", "closed"]
 EventKind = Literal["created", "review", "progress", "blocker", "submission"]
+ExecutionState = Literal["planned", "approved", "succeeded", "failed"]
 
 
 class OpportunityCreate(BaseModel):
@@ -47,3 +48,26 @@ class RankedAction(BaseModel):
     opportunity: Opportunity
     urgency_score: float
     reason: str
+
+
+class EvidenceCheckCreate(BaseModel):
+    """A deliberately bounded, deterministic closed-loop action."""
+
+    evidence: str = Field(min_length=1, max_length=100_000)
+    expected_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+
+class ExecutionApproval(BaseModel):
+    note: str = Field(min_length=2, max_length=500)
+
+
+class Execution(BaseModel):
+    id: str
+    opportunity_id: str
+    action_kind: Literal["verify_evidence_sha256"]
+    state: ExecutionState
+    input: dict[str, Any]
+    result: dict[str, Any] | None = None
+    approval_note: str | None = None
+    created_at: datetime
+    updated_at: datetime

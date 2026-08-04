@@ -54,7 +54,18 @@ are created automatically by this repository.
 - `GET /opportunities/{id}/memory` returns the complete durable timeline.
 - `GET /actions` ranks the next actions using deadline, status, and confidence.
 - `GET /actions/brief` asks Gemini for an evidence-grounded Markdown action brief.
+- `POST /opportunities/{id}/executions/evidence-check` creates a bounded,
+  deterministic verification plan. Separate approval and run endpoints enforce
+  a visible plan → human approval → execution → verification → memory loop.
 - `GET /health` reports service and database health.
+
+The included execution adapter hashes evidence text immediately, persists only
+its digest and byte count, and verifies it against an expected SHA-256 digest.
+It is intentionally narrow: a planned action cannot run before
+explicit approval, a mismatch fails closed and blocks the opportunity, and the
+result is appended to the immutable timeline. This demonstrates the control
+plane required for future external adapters without pretending that the demo
+can submit entries, spend money, or cross account boundaries.
 
 The Gemini integration receives only the ten highest-ranked opportunity records
 and is instructed not to invent eligibility, progress, or rewards. Set

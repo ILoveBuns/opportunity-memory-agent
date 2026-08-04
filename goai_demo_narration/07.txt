@@ -1,1 +1,1 @@
-项目提供 Docker Compose、演示数据脚本、六项自动化测试、CockroachDB 持久化和 AWS App Runner 配置。核心流程不依赖 Gemini 密钥也能运行，并以 MIT 许可证公开。
+项目提供 Docker Compose、演示数据脚本、十二项自动化测试、CockroachDB 持久化和 AWS App Runner 配置。核心流程不依赖 Gemini 密钥也能运行，并以 MIT 许可证公开。

@@ -3,9 +3,23 @@ from fastapi.responses import HTMLResponse
 
 from .dashboard import DASHBOARD_HTML
 from .gemini import generate_action_brief
-from .models import MemoryEvent, MemoryEventCreate, Opportunity, OpportunityCreate, RankedAction
+from .models import (
+    EvidenceCheckCreate,
+    Execution,
+    ExecutionApproval,
+    MemoryEvent,
+    MemoryEventCreate,
+    Opportunity,
+    OpportunityCreate,
+    RankedAction,
+)
 from .ranking import rank_action
-from .repository import OpportunityNotFoundError, Repository
+from .repository import (
+    ExecutionNotFoundError,
+    InvalidExecutionStateError,
+    OpportunityNotFoundError,
+    Repository,
+)
 
 app = FastAPI(title="Opportunity Memory Agent", version="0.1.0")
 
@@ -76,3 +90,45 @@ def get_action_brief(repository: Repository = Depends(get_repository)):
         raise HTTPException(status_code=503, detail=str(error)) from error
     except RuntimeError as error:
         raise HTTPException(status_code=502, detail=str(error)) from error
+
+
+@app.post(
+    "/opportunities/{opportunity_id}/executions/evidence-check",
+    response_model=Execution,
+    status_code=201,
+)
+def plan_evidence_check(
+    opportunity_id: str,
+    payload: EvidenceCheckCreate,
+    repository: Repository = Depends(get_repository),
+):
+    try:
+        return repository.plan_evidence_check(opportunity_id, payload)
+    except OpportunityNotFoundError as error:
+        raise HTTPException(status_code=404, detail="opportunity not found") from error
+
+
+@app.post("/executions/{execution_id}/approve", response_model=Execution)
+def approve_execution(
+    execution_id: str,
+    payload: ExecutionApproval,
+    repository: Repository = Depends(get_repository),
+):
+    try:
+        return repository.approve_execution(execution_id, payload)
+    except ExecutionNotFoundError as error:
+        raise HTTPException(status_code=404, detail="execution not found") from error
+    except InvalidExecutionStateError as error:
+        raise HTTPException(status_code=409, detail=str(error)) from error
+
+
+@app.post("/executions/{execution_id}/run", response_model=Execution)
+def run_execution(
+    execution_id: str, repository: Repository = Depends(get_repository)
+):
+    try:
+        return repository.run_execution(execution_id)
+    except ExecutionNotFoundError as error:
+        raise HTTPException(status_code=404, detail="execution not found") from error
+    except InvalidExecutionStateError as error:
+        raise HTTPException(status_code=409, detail=str(error)) from error
