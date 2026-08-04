@@ -3,18 +3,20 @@ set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 out="$root/goai-demo-output"
-tts="/root/.local/bin/edge-tts"
+tts="${EDGE_TTS_BIN:-/root/.local/bin/edge-tts}"
 ffmpeg="/root/.codex/tools/ffmpeg/ffmpeg"
 ffprobe="/root/.codex/tools/ffmpeg/ffprobe"
-font="/root/.local/share/fonts/NotoSansCJKsc-Regular.otf"
+font="${GOAI_CJK_FONT:-/root/.local/share/fonts/NotoSansCJKsc-Regular.otf}"
 mono="/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
+dashboard="$root/assets/goai-demo-dashboard.png"
 voice="zh-CN-XiaoxiaoNeural"
 durations=(14 16 16 17 17 17 16 15)
 
-for executable in "$tts" "$ffmpeg" "$ffprobe"; do
+for executable in "$ffmpeg" "$ffprobe"; do
   test -x "$executable" || { echo "missing executable: $executable" >&2; exit 1; }
 done
 test -f "$font" || { echo "missing CJK font: $font" >&2; exit 1; }
+test -f "$dashboard" || { echo "missing verified dashboard capture: $dashboard" >&2; exit 1; }
 
 mkdir -p "$out/frames" "$out/audio"
 rm -f "$out/frames/concat.txt" "$out/audio/concat.txt"
@@ -59,6 +61,17 @@ SUBMISSION 关联真实提交状态
 CockroachDB 保存完整时间线' \
   '重启服务后，历史与状态仍然存在'
 
+# Replace the conceptual event slide with a crop of the real dashboard. The
+# page itself labels this as synthetic in-memory demo data.
+convert "$dashboard" -crop 1265x800+0+697 +repage -resize 1480x \
+  -gravity center -background '#07111f' -extent 1920x1080 \
+  -fill '#55d6be' -draw 'rectangle 0,0 1920,14' \
+  -fill '#f4f8fb' -font "$font" -pointsize 34 \
+  -gravity north -annotate +0+34 '真实界面：追加不可变事件并查看时间线' \
+  -fill '#9eb3c8' -pointsize 24 -gravity south \
+  -annotate +0+25 '实际运行画面 · 明确标注的合成演示数据' \
+  "$out/frames/scene-03.png"
+
 scene 04 '证据优先排序' '可执行的临期任务先行动' \
   '机会 A   奖金 5,000 美元 · 截止 7 天
 机会 B   奖金   250 美元 · 截止 1 天
@@ -68,6 +81,15 @@ scene 04 '证据优先排序' '可执行的临期任务先行动' \
 
 结果：机会 B 进入队列首位' \
   '高奖金但不可执行的任务不会挤占行动队列'
+
+# The live queue demonstrates that an executable $250 task outranks a blocked
+# $5,000 task because deadline, evidence confidence, and state are explicit.
+convert "$dashboard" -crop 1265x780+0+0 +repage -resize 1680x \
+  -gravity center -background '#07111f' -extent 1920x1080 \
+  -fill '#55d6be' -draw 'rectangle 0,0 1920,14' \
+  -fill '#9eb3c8' -font "$font" -pointsize 24 -gravity south \
+  -annotate +0+22 '真实排序结果 · SYNTHETIC DEMO · IN-MEMORY' \
+  "$out/frames/scene-04.png"
 
 scene 05 '显式人机边界' '自动化不会偷偷越权' \
   '可以自动：
@@ -94,7 +116,7 @@ scene 07 '可复现工程证据' '从本地演示到云端部署' \
 python scripts/seed_demo.py
 pytest
 
-6 项自动化测试通过
+10 项自动化测试通过
 CockroachDB 持久化
 AWS App Runner 部署配置
 MIT 开源许可证' \
@@ -112,9 +134,14 @@ github.com/ILoveBuns/opportunity-memory-agent' \
 for number in $(seq 1 8); do
   index="$(printf '%02d' "$number")"
   duration="${durations[$((number - 1))]}"
-  "$tts" --voice "$voice" --rate='+8%' \
-    --file "$root/goai_demo_narration/$index.txt" \
-    --write-media "$out/audio/raw-$index.mp3"
+  if test -x "$tts"; then
+    "$tts" --voice "$voice" --rate='+8%' \
+      --file "$root/goai_demo_narration/$index.txt" \
+      --write-media "$out/audio/raw-$index.mp3"
+  elif ! test -s "$out/audio/raw-$index.mp3"; then
+    echo "missing edge-tts and cached narration for scene $index" >&2
+    exit 1
+  fi
   "$ffmpeg" -y -v error -i "$out/audio/raw-$index.mp3" \
     -af "loudnorm=I=-16:TP=-1.5:LRA=11,apad=pad_dur=$duration,atrim=duration=$duration" \
     -ar 48000 -ac 2 "$out/audio/scene-$index.wav"

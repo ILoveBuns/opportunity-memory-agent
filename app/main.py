@@ -22,9 +22,7 @@ def dashboard():
 @app.get("/health")
 def health(repository: Repository = Depends(get_repository)):
     try:
-        with repository.connection() as connection:
-            connection.execute("SELECT 1").fetchone()
-        return {"status": "ok", "database": "connected"}
+        return repository.health_status()
     except Exception as error:
         raise HTTPException(status_code=503, detail="database unavailable") from error
 

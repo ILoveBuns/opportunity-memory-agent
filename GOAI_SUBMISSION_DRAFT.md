@@ -18,7 +18,7 @@ Boundless Agents（无界智能体）——面向跨周、跨平台的真实机�
 - `docker compose up --build` 启动 API 与 CockroachDB。
 - `python scripts/seed_demo.py` 写入可演示数据。
 - 无 Gemini 密钥时，持久化、时间线、排序和仪表盘仍可运行；密钥只用于对前十条已排序事实生成摘要。
-- 六项自动化测试覆盖页面、排序和防幻觉提示构造。
+- 十项自动化测试覆盖页面、排序、防幻觉提示构造和零凭据真实界面演示。
 
 ## 核心创新
 
@@ -40,7 +40,7 @@ Boundless Agents（无界智能体）——面向跨周、跨平台的真实机�
 ## 当前可核验证据
 
 - 公开仓库：`https://github.com/ILoveBuns/opportunity-memory-agent`
-- 本地测试：6 项通过（提交前需重新运行并截取日志）
+- 本地测试：10 项通过；打包脚本会在生成 ZIP 前强制重跑
 - 部署配置：`Dockerfile`、`docker-compose.yml`、`apprunner.yaml`
 - 操作说明：`README.md`、`DEPLOYMENT.md`
 - 提交证据及 PDF/视频校验值：`GOAI_EVIDENCE.md`
@@ -49,4 +49,4 @@ Boundless Agents（无界智能体）——面向跨周、跨平台的真实机�
 
 - 不宣称已产生收入、客户或云端运行实例。
 - 正式报名、实名、协议和收款资料须由参赛者本人完成。
-- 初赛的最终字段和准确截止时刻须以登录后的 GOAI handbook 为准。
+- 初赛最终提交仍须由本人登录平台、确认身份字段和协议后上传。
