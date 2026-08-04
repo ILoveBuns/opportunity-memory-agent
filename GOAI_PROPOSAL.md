@@ -85,7 +85,7 @@ FastAPI 提供 API 与无构建链仪表盘；CockroachDB 保存机会和事件�
 - `docker compose up --build` 启动 API 与 CockroachDB。
 - `python scripts/seed_demo.py` 写入演示数据。
 - AWS App Runner 源码部署配置和部署清单已入库。
-- 6 项自动化测试覆盖仪表盘、排序与 Gemini 防幻觉提示。
+- 10 项自动化测试覆盖仪表盘、排序、Gemini 防幻觉提示与演示存储。
 
 ---
 
@@ -101,11 +101,11 @@ FastAPI 提供 API 与无构建链仪表盘；CockroachDB 保存机会和事件�
 
 ## 09 当前验证与诚实边界
 
-已完成：公开源码、容器化演示、响应式仪表盘、CockroachDB schema、排序引擎、Gemini 约束层、App Runner 配置、6 项测试。
+已完成：公开源码、容器化演示、响应式仪表盘、CockroachDB schema、排序引擎、Gemini 约束层、App Runner 配置、10 项测试。
 
 尚未宣称：真实客户、商业收入、线上生产实例或主办方评测成绩。
 
-初赛前补充：公开演示视频、最新测试日志、登录平台要求的个人/团队资料。
+初赛交付已包含：公开源码、方案 PDF、2 分钟中文视频和零凭据真实界面演示。平台个人/团队资料及协议仍由参赛者本人确认。
 
 ---
 

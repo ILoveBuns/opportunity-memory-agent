@@ -13,6 +13,8 @@ def test_dashboard_exposes_demo_workflow() -> None:
     assert "Ranked action queue" in response.text
     assert "Append immutable event" in response.text
     assert "Grounded Gemini brief" in response.text
+    assert "join('\\n\\n')" in response.text
+    assert "SYNTHETIC DEMO · IN-MEMORY" in response.text
 
 
 class MissingOpportunityRepository:

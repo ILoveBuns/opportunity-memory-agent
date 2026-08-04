@@ -25,6 +25,17 @@ page creates opportunities, displays the ranked queue, appends memory events,
 shows the durable timeline, and requests a grounded Gemini brief without adding
 a frontend framework or build step.
 
+For a zero-credential product walkthrough, run:
+
+```bash
+uvicorn scripts.demo_server:app --reload
+```
+
+This serves the real dashboard and API with explicitly labelled synthetic,
+process-local data. It demonstrates creation, immutable event append, timeline
+inspection, and ranked actions without claiming CockroachDB persistence. Use the
+Docker Compose workflow above when demonstrating durable storage.
+
 For a reproducible container demo, set `GEMINI_API_KEY` and run
 `docker compose up --build`. After the services are healthy, run
 `docker compose exec api python scripts/seed_demo.py` (the script is included in
@@ -66,8 +77,10 @@ open-source evidence, and an honest demo plan for the GOAI preliminary round.
 `GOAI_PLATFORM_FIELDS.md` provides copy-ready non-sensitive platform fields, while
 `GOAI_DEMO_SCRIPT.md` gives a timed, evidence-first recording plan under three minutes.
 Run `./make_goai_demo_video.sh` to generate the 1080p Chinese-narrated GOAI overview;
-the generated media stays outside version control, while the script and narration
-remain reproducible and reviewable.
+the generated media stays outside version control, while the script, real dashboard
+capture, and narration remain reproducible and reviewable. Run
+`./make_goai_submission_package.sh` after committing to create a focused archive
+whose manifest binds the source commit, tests, PDF, and video hashes.
 
 Run `./make_devpost_demo_video.sh` to generate the English-narrated, 1080p
 CockroachDB × AWS overview. The video explicitly distinguishes reproducible local

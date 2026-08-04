@@ -15,7 +15,7 @@
 | Open-source URL | https://github.com/ILoveBuns/opportunity-memory-agent |
 | License | MIT |
 | Reproduction | `docker compose up --build`，随后运行 `docker compose exec api python scripts/seed_demo.py`。 |
-| Current evidence | 6 项自动化测试通过；公开源码、Docker Compose、AWS App Runner 配置、11 页初赛方案 PDF。 |
+| Current evidence | 10 项自动化测试通过；公开源码、零凭据真实界面演示、Docker Compose、AWS App Runner 配置、方案 PDF。 |
 | Data and compliance | 演示数据为虚构数据；模型只接收行动队列中的结构化事实；身份、条款、付款与验证码保留为人工边界。 |
 | Business path | 先服务同时管理多条机会的小团队；后续可扩展到销售、资助申请、招聘和客户成功等长期工作流。 |
 | Current limitations | 尚无真实客户收入或公开云部署，不对此作虚假声明；正式平台身份与收款资料由参赛者本人提供。 |
@@ -26,4 +26,3 @@
 - 团队成员和组织归属。
 - 参赛协议、知识产权及数据授权勾选。
 - 若进入前 15，能否于 2026-09-22 至 09-23 到杭州参加现场决赛和颁奖。
-

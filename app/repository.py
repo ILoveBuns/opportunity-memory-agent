@@ -21,6 +21,11 @@ class Repository:
         with psycopg.connect(self.database_url, row_factory=dict_row) as connection:
             yield connection
 
+    def health_status(self) -> dict[str, str | bool]:
+        with self.connection() as connection:
+            connection.execute("SELECT 1").fetchone()
+        return {"status": "ok", "database": "connected", "demo": False}
+
     def create(self, payload: OpportunityCreate) -> Opportunity:
         opportunity_id = str(uuid4())
         event_id = str(uuid4())
