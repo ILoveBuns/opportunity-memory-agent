@@ -101,6 +101,13 @@ is included for reviewers and can be downloaded directly from GitHub.
 See [DEVPOST_EVIDENCE.md](DEVPOST_EVIDENCE.md) for the public URLs, checksums,
 CI run, and explicit claims boundary.
 
+For the Gemini XPRIZE path, [CLOUD_RUN_DEPLOYMENT.md](CLOUD_RUN_DEPLOYMENT.md)
+defines a Google Cloud Run and Secret Manager verification checklist. It is a
+deployment procedure, not a claim that cloud resources or a production service
+already exist. [GEMINI_XPRIZE_FORM_WORKSHEET.md](GEMINI_XPRIZE_FORM_WORKSHEET.md)
+separates repository-backed form copy from entrant-only identity, financial,
+traction, and terms confirmations.
+
 ## License
 
 MIT
