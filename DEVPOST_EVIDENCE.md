@@ -5,12 +5,16 @@ Verified on 2026-08-05.
 ## Public evidence
 
 - Repository: `https://github.com/ILoveBuns/opportunity-memory-agent`
-- Source commit: `9d579f96ef4571ff752ef4d44e7699319dbfd46e`
+- Public source commit: `9d579f96ef4571ff752ef4d44e7699319dbfd46e`
+- Unpublished local evidence commit: `39af5d1` (Gemini request security and
+  response handling)
 - CI: `https://github.com/ILoveBuns/opportunity-memory-agent/actions/runs/30966645896`
 - Narrated demo: `https://github.com/ILoveBuns/opportunity-memory-agent/raw/main/assets/opportunity-memory-agent-devpost-1080p.mp4`
 - Cover image: `https://raw.githubusercontent.com/ILoveBuns/opportunity-memory-agent/main/assets/opportunity-memory-agent-cover.png`
-- Tests: 12/12 passed locally on 2026-08-05; the current commit also passed the
-  complete `python -m pytest -q` job on Python 3.11 and 3.12 in GitHub Actions.
+- Public commit tests: 12/12 passed locally on 2026-08-05 and in the complete
+  `python -m pytest -q` job on Python 3.11 and 3.12 in GitHub Actions.
+- Local evidence branch tests: 15/15 passed locally on 2026-08-05. No CI claim is
+  made for this unpublished commit.
 
 ## Artifact integrity
 

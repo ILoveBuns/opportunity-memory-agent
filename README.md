@@ -68,7 +68,9 @@ plane required for future external adapters without pretending that the demo
 can submit entries, spend money, or cross account boundaries.
 
 The Gemini integration receives only the ten highest-ranked opportunity records
-and is instructed not to invent eligibility, progress, or rewards. Set
+and is instructed to treat their values as untrusted data and not to invent
+eligibility, progress, or rewards. The API key is sent in Google's documented
+`x-goog-api-key` header rather than placed in the request URL. Set
 `GEMINI_API_KEY`; `GEMINI_MODEL` defaults to `gemini-2.5-flash`.
 
 ## Tests

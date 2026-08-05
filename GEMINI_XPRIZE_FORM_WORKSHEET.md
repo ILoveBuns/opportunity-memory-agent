@@ -10,7 +10,9 @@ paste an item marked `CONFIRM` until the entrant has verified it.
 - Status: `DRAFT`, 3/5 steps complete
 - Repository: `https://github.com/ILoveBuns/opportunity-memory-agent`
 - First repository commit: 2026-08-01 (`bd56edd`)
-- Current repository HEAD at verification: `9d579f9`
+- Current local evidence branch HEAD at verification: `39af5d1`
+- Current public repository HEAD: `9d579f9` (the local evidence branch has not
+  been published)
 - Public project page: `https://devpost.com/software/opportunity-memory-agent`
 
 ## Recommended category
@@ -103,11 +105,13 @@ been independently verified.
 
 The application sends a bounded prompt containing at most the ten
 highest-ranked opportunity records to the Gemini `generateContent` endpoint.
-The prompt tells Gemini to use only those records, preserve unresolved blockers,
-and never invent eligibility, completion, or rewards. The response becomes a
-human-readable action brief; durable state and priority scores remain governed
-by the database and deterministic code. The model is configured through
-`GEMINI_MODEL`, which defaults to `gemini-2.5-flash`.
+The prompt tells Gemini to treat record values as untrusted data, preserve
+unresolved blockers, and never invent eligibility, completion, or rewards. The
+API key is transmitted in the documented `x-goog-api-key` header rather than in
+the URL. The response becomes a human-readable action brief; durable state and
+priority scores remain governed by the database and deterministic code. The
+model is configured through `GEMINI_MODEL`, which defaults to
+`gemini-2.5-flash`.
 
 ### Repository URL
 
