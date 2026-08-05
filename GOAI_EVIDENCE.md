@@ -1,6 +1,6 @@
 # GOAI submission evidence
 
-Verified on 2026-08-04 before the organizer-requested ZIP re-upload.
+Verified through the successful third preliminary submission on 2026-08-05.
 
 ## Reproducibility
 
@@ -55,5 +55,15 @@ Verified on 2026-08-04 before the organizer-requested ZIP re-upload.
   `d3cd8aa6261b90bd906cebfab8c17ef31c9e6e06282d344d8e75205a98d3e992`.
 - Revised 127.637-second 1080p H.264/AAC demo SHA-256:
   `2bb60fefa8e5a07042a9b3b3d83ec19c12602eb4ee67816a6c8f2322a33996f2`.
-- This revision remains local until its exact source commit is pushed and a new
-  package is built. It is not yet claimed as the platform judging version.
+- Exact source commit: `f1390068e979534cedf52c7d2caf014c79a8837a`.
+- Final package SHA-256:
+  `b83ca83ec41cfd005ccf9bb9ae6721e610b3bf266f34f69cec0dee92286e0eb2`
+  (4,345,208 bytes).
+- The platform's legacy enrollment record had no topic. The correct workflow
+  was to select the topic in the preliminary submission form itself. The third
+  submission succeeded on 2026-08-05 at 09:30:51 UTC+8 and is now the judging
+  version: attempt 3/3, status `submitted` / `审核中`, topic key
+  `ai_finance` (`赛题三：AI+金融`), and total size 4,345,208 bytes. The API
+  returned HTTP 201 for draft creation, upload init, upload part, upload
+  completion, and final submission; a subsequent read-only record fetch
+  confirmed `isReviewVersion: true`.
