@@ -10,9 +10,7 @@ paste an item marked `CONFIRM` until the entrant has verified it.
 - Status: `DRAFT`, 3/5 steps complete
 - Repository: `https://github.com/ILoveBuns/opportunity-memory-agent`
 - First repository commit: 2026-08-01 (`bd56edd`)
-- Current local evidence branch HEAD at verification: `39af5d1`
-- Current public repository HEAD: `9d579f9` (the local evidence branch has not
-  been published)
+- Current public evidence commit: `0c9d6c3`
 - Public project page: `https://devpost.com/software/opportunity-memory-agent`
 
 ## Recommended category
